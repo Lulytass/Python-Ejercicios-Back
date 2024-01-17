@@ -16,3 +16,114 @@
 # Identify the player with the highest passing accuracy: Displays the player with the most points in passing accuracy.
 # Identify the player with the most defensive involvements: Displays the player with the most points in defensive involvements.
 # The system should also allow returning to the main menu.
+
+class Jugadores:
+    def __init__(self):
+        self.jugadores = {
+            "8": {
+                "nombre": "Bruno Fernandes", "goles": 5, "velocidad": 6, "asistencias": 9, "precisión de pase": 10, "participaciones defensivas": 3 
+            },
+            "11": {
+                "nombre": "Rasmus Hojlund", "goles": 12, "velocidad": 8, "asistencias": 2, "precisión de pase": 6, "participaciones defensivas": 2 
+            },
+            "5": {
+                "nombre": "Harry Maguire", "goles": 1, "velocidad": 5, "asistencias": 1, "precisión de pase": 7, "participaciones defensivas": 9 
+            },
+            "17": {
+                "nombre": "Alejandro Garnacho", "goles": 8, "velocidad": 7, "asistencias": 8, "precisión de pase": 6, "participaciones defensivas": 0 
+            },
+            "7": {
+                "nombre": "Mason Mount", "goles": 2, "velocidad": 6, "asistencias": 4, "precisión de pase": 8, "participaciones defensivas": 1
+            },
+        }
+        self.menu = {
+            "Máximo goleador": "goles",
+            "Jugador más rápido": "velocidad",
+            "Revisión del jugador": "ver jugador",
+            "Comparar dos jugadores": "comparar",
+            "Jugador con más asistencias": "asistencias",
+            "Jugador con mayor precisión de pase": "precisión de pase",
+            "Jugador con más implicaciones defensivas": "participaciones defensivas",
+            "Salir del sistema": "cerrar"
+        }
+    
+    def mostrar_menu(self):
+        print("----Bienvenido----\n")
+        for i, opciones in enumerate(self.menu.keys(), start=1):
+            print(f"{i}. {opciones}")
+
+    def obtener_opcion(self, estruc, mensaje, retorno_clave=False):
+        while True:
+            try:
+                opcion = int(input(f"\n{mensaje} (1-{len(estruc)}): "))
+                if 1 <= opcion <= len(estruc):
+                    if retorno_clave:
+                        str_opcion = list(estruc.values())[opcion - 1]
+                        return str_opcion
+                    else:
+                        return opcion
+                else:
+                    print("\nSelección inválida. Asegúrese de elegir una dentro del rango.")
+            except ValueError:
+                print("\nPor favor, ingrese un número válido.")
+
+    def maximos(self, busqueda):
+        max_valor = 0
+        jugador_max_valor = None
+
+        for datos in self.jugadores.values():
+            valor = datos[busqueda]
+            if valor > max_valor:
+                max_valor = valor
+                jugador_max_valor = datos["nombre"]
+
+        if max_valor > 0:
+            print(f"Nombre: {jugador_max_valor}\n{busqueda}: {max_valor}.")
+        else:
+            print("Todos los jugadores se encuentran en 0 en dicho aspecto.")
+
+    def mostrar_jugadores(self):
+        print("----Jugadores Disponibles----\n")
+        for i, datos in enumerate(self.jugadores.values(), start=1):
+            print(f"{i}. {datos['nombre']}")
+
+    def seleccionar_jugadores(self, estruc):
+        opcion1 = self.obtener_opcion(estruc, "Seleccione el primer jugador", False)
+        opcion2 = self.obtener_opcion(estruc, "Seleccione el segundo jugador", False)
+
+        return opcion1, opcion2
+
+    def mostrar_jugador(self, jugador):
+        jugador_seleccionado = list(self.jugadores.values())[jugador - 1]
+        print(f"\nNombre: {jugador_seleccionado['nombre']}\nGoles: {jugador_seleccionado['goles']}\nVelocidad: {jugador_seleccionado['velocidad']}\nAsistencias: {jugador_seleccionado['asistencias']}\nPrecisión de pase: {jugador_seleccionado['precisión de pase']}\nParticipaciones defensivas: {jugador_seleccionado['participaciones defensivas']}")
+
+    def programa_principal(self):
+        while True:
+            self.mostrar_menu()
+            opcion_menu = self.obtener_opcion(self.menu, "Seleccione una de las opciones",True)
+            
+            if opcion_menu in ["goles", "velocidad", "asistencias", "precisión de pase", "participaciones defensivas"]:
+                self.maximos(opcion_menu)
+            elif opcion_menu == "ver jugador":
+                self.mostrar_jugadores()
+                opcion_jugador = self.obtener_opcion(self.menu, "Seleccione un jugador",False)
+                self.mostrar_jugador(opcion_jugador)
+            elif opcion_menu == "comparar":
+                self.mostrar_jugadores()
+                opcion1, opcion2 = self.seleccionar_jugadores(self.jugadores)
+                print("\nCaracterísticas del primer jugador\n")
+                self.mostrar_jugador(opcion1)
+                print("\nCaracterísticas del segundo jugador\n")
+                self.mostrar_jugador(opcion2)
+            else:
+                break
+
+
+prueba = Jugadores()
+prueba.programa_principal()
+
+  
+        
+           
+                
+

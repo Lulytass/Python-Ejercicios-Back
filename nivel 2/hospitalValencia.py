@@ -19,6 +19,9 @@ class Hospital:
         self.turno_seleccionado = None
         self.horario_elegido = None
         self.citas = []
+        self.numero_citas_realizadas = 0
+        self.max_citas = 3
+        self.especialidades_reservadas = []
         self.especialidades = {
     "Medicina General": {
         "gen1": {
@@ -222,41 +225,61 @@ class Hospital:
 
     def programa_principal(self):
         if self.login():
-            # Mostrar opciones y obtener selecciones
-            opciones_especialidades = list(self.especialidades.keys())
-            self.especialidad_seleccionada = self.obtener_opcion(opciones_especialidades, "Especialidades Disponibles")
+            while self.numero_citas_realizadas < self.max_citas:
+                # Mostrar opciones y obtener selecciones
+                opciones_especialidades = list(self.especialidades.keys())
+                self.especialidad_seleccionada = self.obtener_opcion(opciones_especialidades, "Especialidades Disponibles")
 
-            medicos_disponibles = self.especialidades[self.especialidad_seleccionada]
-            opciones_medicos = list(medicos_disponibles.keys())
-            self.medico_seleccionado = self.obtener_opcion(opciones_medicos, "Médicos Disponibles")
+                medicos_disponibles = self.especialidades[self.especialidad_seleccionada]
+                print(self.especialidades_reservadas)
+                # Verificar si la especialidad ya ha sido reservada
+                if self.especialidad_seleccionada in self.especialidades_reservadas:
+                    print("Ya ha reservado una cita para esta especialidad. Seleccione otra especialidad.")
+                    continue
 
-            # Ahora que tenemos el médico seleccionado, podemos obtener los turnos disponibles
-            turnos_disponibles = medicos_disponibles[self.medico_seleccionado]
+                medicos_disponibles = self.especialidades[self.especialidad_seleccionada]
+                opciones_medicos = list(medicos_disponibles.keys())
+                self.medico_seleccionado = self.obtener_opcion(opciones_medicos, "Médicos Disponibles")
 
-            # # Mostrar turnos disponibles y obtener selección de turno
-            # self.mostrar_turno(turnos_disponibles)
+                # Ahora que tenemos el médico seleccionado, podemos obtener los turnos disponibles
+                turnos_disponibles = medicos_disponibles[self.medico_seleccionado]
 
-            # Obtener la selección de Mañana o Tarde
-            opciones_turno = list(turnos_disponibles.keys())
-            self.turno_seleccionado = self.obtener_opcion(opciones_turno, "Seleccione Mañana o Tarde")
+                # # Mostrar turnos disponibles y obtener selección de turno
+                # self.mostrar_turno(turnos_disponibles)
 
-            # Mostrar los horarios disponibles según la elección de Mañana o Tarde
-            horarios_disponibles = turnos_disponibles[self.turno_seleccionado]
-            self.mostrar_turno(horarios_disponibles)
+                # Obtener la selección de Mañana o Tarde
+                opciones_turno = list(turnos_disponibles.keys())
+                self.turno_seleccionado = self.obtener_opcion(opciones_turno, "Seleccione Mañana o Tarde")
 
-            # Obtener la selección de horario
-            self.horario_elegido = self.obtener_opcion(horarios_disponibles, "Seleccione un horario")
+                # Mostrar los horarios disponibles según la elección de Mañana o Tarde
+                horarios_disponibles = turnos_disponibles[self.turno_seleccionado]
 
-            # Mostrar resumen de selecciones
-            self.mostrar_seleccion()
+                # Obtener la selección de horario
+                self.horario_elegido = self.obtener_opcion(horarios_disponibles, "Seleccione un horario")
 
-            # Confirmar la reserva de la cita
-            confirmacion = input("\n¿Desea confirmar la reserva de la cita? (S): ").strip().upper()
-            if confirmacion == "S":
-                self.reservar_cita(self.medico_seleccionado, f"{self.turno_seleccionado} - {self.horario_elegido}")
-                print(f"Citas actuales: {self.citas}")
-            else:
-                print("Reserva de cita cancelada.")
+                # Mostrar resumen de selecciones
+                self.mostrar_seleccion()
+
+                # Confirmar la reserva de la cita
+                confirmacion = input("\n¿Desea confirmar la reserva de la cita? (S): ").strip().upper()
+                if confirmacion == "S":
+                    self.reservar_cita(self.medico_seleccionado, f"{self.turno_seleccionado} - {self.horario_elegido}")
+                    self.numero_citas_realizadas += 1
+                    self.especialidades_reservadas.append(self.especialidad_seleccionada)
+                else:
+                    print("Reserva de cita cancelada.")
+
+                # Preguntar si desea reservar otra cita
+                reservar_otra = input("\n¿Desea reservar otra cita? (S/N): ").strip().upper()
+                if reservar_otra != "S":
+                    print(f"Citas reservadas: {self.citas}") 
+                    print(f"Gracias por usar el sistema. Ha realizado {self.numero_citas_realizadas} citas.")
+                    break
+            
+                if self.numero_citas_realizadas == 3:
+                    print(f"Ha llegado al limite de citas reservadas")
+                    print(f"Saliendo del sistema")
+                    break
 
 prueba = Hospital()
 prueba.programa_principal()

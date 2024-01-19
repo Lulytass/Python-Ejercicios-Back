@@ -85,20 +85,21 @@ class Agencia:
 
         for pais, actividades_disponibles in destinos_temporada.items():
             precio = self.precios.get(temporada, 0)
-            if precio <= presupuesto:
-                destinos_posibles_temporada.append(
-                    {
-                        "Temporada": temporada,
-                        "Pais": pais,
-                        "Actividad": actividades_disponibles,
-                        "Precio": precio
-                    }
-                )
-            if actividad in actividades_disponibles:
+            
+            if actividad in actividades_disponibles and precio <= presupuesto:
                 destinos_preferido.append(
                     {
                         "Pais": pais,
                         "Temporada": temporada,
+                        "Actividad": actividades_disponibles,
+                        "Precio": precio
+                    }
+                )
+            elif precio <= presupuesto:
+                destinos_posibles_temporada.append(
+                    {
+                        "Temporada": temporada,
+                        "Pais": pais,
                         "Actividad": actividades_disponibles,
                         "Precio": precio
                     }
@@ -110,8 +111,7 @@ class Agencia:
             print(f"\n-----Destinos coincidentes dentro de un presupuesto de ${presupuesto}-----")
             for i, datos in enumerate(destinos_preferido, start=1):
                 mensaje_destino += f"\nTemporada: {datos['Temporada']}\nPais: {datos['Pais']}\nPrecio: ${datos['Precio']}\nActividades: {', '.join(datos['Actividad'])}."
-
-        if destinos_posibles_temporada:
+        elif destinos_posibles_temporada:
             print(f"\n-----Destinos en {temporada} dentro de un presupuesto de ${presupuesto}-----")
             for i, datos in enumerate(destinos_posibles_temporada, start=1):
                 mensaje_destino += f"\nPais: {datos['Pais']}\nPrecio: ${datos['Precio']}\nActividades: {', '.join(datos['Actividad'])}."

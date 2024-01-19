@@ -107,17 +107,38 @@ class Agencia:
         mensaje_destino = ""
 
         if destinos_preferido:
-            print(f"-----Destinos coincidentes dentro de un presupuesto de {presupuesto}-----")
+            print(f"\n-----Destinos coincidentes dentro de un presupuesto de ${presupuesto}-----")
             for i, datos in enumerate(destinos_preferido, start=1):
                 mensaje_destino += f"\nTemporada: {datos['Temporada']}\nPais: {datos['Pais']}\nPrecio: ${datos['Precio']}\nActividades: {', '.join(datos['Actividad'])}."
 
-        elif destinos_posibles_temporada:
-            print(f"-----Destinos en {temporada} con un presupuesto de {presupuesto}-----")
+        if destinos_posibles_temporada:
+            print(f"\n-----Destinos en {temporada} dentro de un presupuesto de ${presupuesto}-----")
             for i, datos in enumerate(destinos_posibles_temporada, start=1):
                 mensaje_destino += f"\nPais: {datos['Pais']}\nPrecio: ${datos['Precio']}\nActividades: {', '.join(datos['Actividad'])}."
 
-        else:
-            mensaje_destino = f"\nNo hay destinos disponibles para {actividad} en {temporada} dentro de tu presupuesto."
+        if not destinos_preferido:
+            # Buscar destinos en otras temporadas con la actividad deseada
+            destinos_en_otras_temporadas = []
+
+            for otra_temporada, destinos_otra_temporada in self.destinos.items():
+                if otra_temporada != temporada:
+                    for pais_otra_temporada, actividades_otra_temporada in destinos_otra_temporada.items():
+                        precio_otra_temporada = self.precios.get(otra_temporada, 0)
+                        if precio_otra_temporada <= presupuesto and actividad in actividades_otra_temporada:
+                            destinos_en_otras_temporadas.append(
+                                {
+                                    "Pais": pais_otra_temporada,
+                                    "Temporada": otra_temporada,
+                                    "Actividad": actividades_otra_temporada,
+                                    "Precio": precio_otra_temporada
+                                }
+                            )
+
+            if destinos_en_otras_temporadas:
+                for i, datos in enumerate(destinos_en_otras_temporadas, start=1):
+                    mensaje_destino += f"\nNo hay destinos disponibles para {actividad} en {temporada} dentro de tu presupuesto. Sin embargo, puedes considerar {datos['Pais']} en {datos['Temporada']}. Precio: ${datos['Precio']}. Podrás disfrutar de las siguientes actividades: {', '.join(datos['Actividad'])}."
+            else:
+                mensaje_destino = f"\nNo hay destinos disponibles para {actividad} en {temporada} dentro de tu presupuesto."
 
         return mensaje_destino
 

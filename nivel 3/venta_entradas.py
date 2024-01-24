@@ -38,12 +38,13 @@ class Asientos:
         return numeroAsiento in self.asientos[claseAsiento]
     
     def tipos_asientos(self):
+        print("\n---Clases de asientos disponibles---")
         claves = list(self.asientos.keys())
         for i, (tipo, asiento) in enumerate(self.asientos.items(), start=1):
             print(f"{i}. {tipo}: del asiento {asiento[0]} al {asiento[len(asiento)-1]}")
         while True:
             try:
-                seleccion = int(input(f"Seleccione un tipo de asiento (1-{len(self.asientos.items())}): "))
+                seleccion = int(input(f"\nSeleccione un tipo de asiento (1-{len(self.asientos.items())}): "))
                 if 1 <= seleccion <= len(self.asientos.items()):
                     return claves[seleccion-1]
                 else:
@@ -54,19 +55,20 @@ class Asientos:
     def elegir_numero(self, clave):
         while True:
             try: 
-                eleccion = int(input(f"Seleccione un asiento del {self.asientos[clave][0]} al {self.asientos[clave][len(self.asientos[clave])-1]}: "))
+                eleccion = int(input(f"\nSeleccione un asiento del {self.asientos[clave][0]} al {self.asientos[clave][len(self.asientos[clave])-1]}: "))
                 if self.asientos[clave][0] <= eleccion <= self.asientos[clave][len(self.asientos[clave])-1]:
                     return eleccion
                 else:
-                    print("Ingrese un numero dentro del rango señalado")
+                    print("\nIngrese un numero dentro del rango señalado")
             except ValueError:
                 print("\nPor favor, ingrese un valor válido.")
 
     def ocupar_asiento(self, clase, asiento): 
         try:
             self.asientos[clase].remove(asiento)
-            print("El asiento se reservo correctamente")
+            print("\n------El asiento se reservo correctamente------\n")
             self.total_asientos -= 1
+            print(f"\n------El estadio aun cuenta con {self.total_asientos} asientos disponibles------\n")
             return True
         except ValueError:
             print("No se pudo realizar la reserva")
@@ -74,9 +76,8 @@ class Asientos:
 
     def descuento_miembro(self, miembro, clase):
         if miembro == True:
-            precio = self.precios_asientos[clase] * 0,15
-            print(self.precios_asientos[clase])
-            print("El precio de las entradas cuentan con un 15% de descuento por ser socio del club")
+            precio = (self.precios_asientos[clase]) * 0.15
+            print("\nEl precio de las entradas cuentan con un 15% de descuento por ser socio del club")
         else:
             precio = self.precios_asientos[clase]
         return precio
@@ -202,14 +203,14 @@ class Estadio:
         while True:
             self.menu()
             try:
-                opcion = int(input("Ingrese una opcion (1-2): "))
+                opcion = int(input("\nIngrese una opcion (1-2): "))
                 if 1 <= opcion <= 2:
                     if opcion == 1:
                         return True
                     elif opcion == 2:
                         return False   
                 else:
-                    print("Ingrese una opcion dentro del rango correcto")
+                    print("\nIngrese una opcion dentro del rango correcto")
             except ValueError:
                 print("\nPor favor, ingrese un valor válido.")
 
@@ -223,23 +224,29 @@ class Estadio:
             if self.leer_opcion():
                 clave = self.entradas.tipos_asientos()
                 valor = self.entradas.elegir_numero(clave)
-                if self.entradas.comprobar_existencia(clave, valor):
-                    precio = self.entradas.descuento_miembro(miembro, clave)
-                    print(f"El precio por {clave} nro. {valor} es {precio}")
-                    respuesta = input("Ingrese Y para confirmar o cual otra tecla para cancelar: ").strip().upper()
-                    if respuesta == "Y":
-                        self.entradas.ocupar_asiento(clave, valor)
+                if self.entradas.comprobar_existencia(clave, valor) == False:
+                    print("\nEl asiento seleccionado no esta disponible\n")
+                    valor = self.entradas.asiento_cercano(clave, valor)
+                    if valor != None:
+                        print(f"\nEl mas cercano de la seccion elegida es el nro. {valor}\n")
+                    else:
+                        print(f"\nNo hay asiento disponibles para {clave}\n")
+                        continue
+                precio = self.entradas.descuento_miembro(miembro, clave)
+                print(f"\nEl precio por {clave} nro. {valor} es {precio}")
+                respuesta = input("\nIngrese Y para confirmar o cual otra tecla para cancelar: ").strip().upper()
+                if respuesta == "Y":
+                    if self.entradas.ocupar_asiento(clave, valor):
                         self.entradas_vendidas.append({
                             "clase": clave,
                             "asiento": valor,
                             "precio": precio
                         })
-                        asientos_disponibles -= 1
             else:
                 break
         if asientos_disponibles < 1:
-            print("Llego al limite de entradas que puede adquirir")
-        print("-----Detalle de compra-----")
+            print("\nLlego al limite de entradas que puede adquirir\n")
+        print("-----Detalle de compras realizadas en el sistema-----")
         for i, datos in enumerate(self.entradas_vendidas, start=1):
             print(f"{i}. Ubicación: {datos['clase']} Asiento: {datos['asiento']} Precio {datos['precio']}")
         

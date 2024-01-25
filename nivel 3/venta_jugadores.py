@@ -73,7 +73,8 @@
 
 class Sistema_Venta:
     def __init__(self):
-        self.goalkeppers = [
+        self.players = {
+            'goalkeepers' : [
             {
                 'name': 'André Onana',
                 'Price': 25000000,
@@ -92,143 +93,142 @@ class Sistema_Venta:
                 'Salary': 2000000,
                 'Performance': 'Normal',
             },
-        ]
-
-        self.defenders = [
-            {
-                'name': 'Victor Lindelof',
-                'Price': 10000000,
-                'Salary': 7000000,
-                'Performance': 'Normal',
-            },
-            {
-                'name': 'Harry Maguire',
-                'Price': 15000000,
-                'Salary': 10000000,
-                'Performance': 'Good',
-            },
-            {
-                'name': 'Raphael Varane',
-                'Price': 15000000,
-                'Salary': 10000000,
-                'Performance': 'Good',
-            },
-            {
-                'name': 'Lisandro Martínez',
-                'Price': 15000000,
-                'Salary': 8000000,
-                'Performance': 'Good',
-            },
-            { 
-                'name': 'Jonny Evans', 
-                'Price': 7000000, 
-                'Salary': 4000000, 
-                'Performance': 'Good' 
-            },
-            {
-                'name': 'Willy Kambwala',
-                'Price': 4000000,
-                'Salary': 1000000,
-                'Performance': 'Normal',
-            },
-            {
-                'name': 'Rhys Bennett',
-                'Price': 4000000,
-                'Salary': 2000000,
-                'Performance': 'Normal',
-            },
-        ]
-        self.rightside = [
-            {
-                'name': 'Diogo Dalot',
-                'Price': 40000000,
-                'Salary': 10000000,
-                'Performance': 'Good',
-            },
-            {
-                'name': 'Aaron Wan Bissaka',
-                'Price': 30000000,
-                'Salary': 9000000,
-                'Performance': 'Normal',
-            },
-        ]
-        self.leftside = [
-            { 
-                'name': 'Luke Shaw', 
-                'Price': 40000000, 
-                'Salary': 16000000, 
-                'Performance': 'Good' 
-            },
-            {
-                'name': 'Sergio Reguilón',
-                'Price': 20000000,
-                'Salary': 8000000,
-                'Performance': 'Normal',
-            },
-            {
-                'name': 'Tyrell Malacia',
-                'Price': 16000000,
-                'Salary': 7000000,
-                'Performance': 'Normal',
-            },
-        ]
-        self.midfielders = [
-            {
-                'name': 'Sofyan Amrabat',
-                'Price': 25000000,
-                'Salary': 9000000,
-                'Performance': 'Normal',
-            },
-            {
-                'name': 'Mason Mount',
-                'Price': 25000000,
-                'Salary': 12000000,
-                'Performance': 'Normal',
-            },
-            {
-                'name': 'Carlos Casemiro',
-                'Price': 25000000,
-                'Salary': 15000000,
-                'Performance': 'Good',
-            },
-            {
-                'name': 'Bruno Fernandes',
-                'Price': 50000000,
-                'Salary': 11000000,
-                'Performance': 'Good',
-            },
-            {
-                'name': 'Christian Eriksen',
-                'Price': 25000000,
-                'Salary': 8000000,
-                'Performance': 'Normal',
-            },
-            {
-                'name': 'Scott McTominay',
-                'Price': 40000000,
-                'Salary': 8000000,
-                'Performance': 'Good',
-            },
-            {
-                'name': 'Hannibal Mejbri',
-                'Price': 12000000,
-                'Salary': 2000000,
-                'Performance': 'Good',
-            },
-            {
-                'name': 'Kobbie Mainoo',
-                'Price': 12000000,
-                'Salary': 2000000,
-                'Performance': 'Good',
-            },
-            {
-                'name': 'Daniel Gore',
-                'Price': 9000000,
-                'Salary': 2000000,
-                'Performance': 'Normal',
-            },
-        ]
-        self.strikers = [
+        ],
+            'defenders' : [
+                {
+                    'name': 'Victor Lindelof',
+                    'Price': 10000000,
+                    'Salary': 7000000,
+                    'Performance': 'Normal',
+                },
+                {
+                    'name': 'Harry Maguire',
+                    'Price': 15000000,
+                    'Salary': 10000000,
+                    'Performance': 'Good',
+                },
+                {
+                    'name': 'Raphael Varane',
+                    'Price': 15000000,
+                    'Salary': 10000000,
+                    'Performance': 'Good',
+                },
+                {
+                    'name': 'Lisandro Martínez',
+                    'Price': 15000000,
+                    'Salary': 8000000,
+                    'Performance': 'Good',
+                },
+                { 
+                    'name': 'Jonny Evans', 
+                    'Price': 7000000, 
+                    'Salary': 4000000, 
+                    'Performance': 'Good' 
+                },
+                {
+                    'name': 'Willy Kambwala',
+                    'Price': 4000000,
+                    'Salary': 1000000,
+                    'Performance': 'Normal',
+                },
+                {
+                    'name': 'Rhys Bennett',
+                    'Price': 4000000,
+                    'Salary': 2000000,
+                    'Performance': 'Normal',
+                },
+            ],
+            'rightside' : [
+                {
+                    'name': 'Diogo Dalot',
+                    'Price': 40000000,
+                    'Salary': 10000000,
+                    'Performance': 'Good',
+                },
+                {
+                    'name': 'Aaron Wan Bissaka',
+                    'Price': 30000000,
+                    'Salary': 9000000,
+                    'Performance': 'Normal',
+                },
+            ],
+            'leftside' : [
+                { 
+                    'name': 'Luke Shaw', 
+                    'Price': 40000000, 
+                    'Salary': 16000000, 
+                    'Performance': 'Good' 
+                },
+                {
+                    'name': 'Sergio Reguilón',
+                    'Price': 20000000,
+                    'Salary': 8000000,
+                    'Performance': 'Normal',
+                },
+                {
+                    'name': 'Tyrell Malacia',
+                    'Price': 16000000,
+                    'Salary': 7000000,
+                    'Performance': 'Normal',
+                },
+            ],
+            'midfielders' : [
+                {
+                    'name': 'Sofyan Amrabat',
+                    'Price': 25000000,
+                    'Salary': 9000000,
+                    'Performance': 'Normal',
+                },
+                {
+                    'name': 'Mason Mount',
+                    'Price': 25000000,
+                    'Salary': 12000000,
+                    'Performance': 'Normal',
+                },
+                {
+                    'name': 'Carlos Casemiro',
+                    'Price': 25000000,
+                    'Salary': 15000000,
+                    'Performance': 'Good',
+                },
+                {
+                    'name': 'Bruno Fernandes',
+                    'Price': 50000000,
+                    'Salary': 11000000,
+                    'Performance': 'Good',
+                },
+                {
+                    'name': 'Christian Eriksen',
+                    'Price': 25000000,
+                    'Salary': 8000000,
+                    'Performance': 'Normal',
+                },
+                {
+                    'name': 'Scott McTominay',
+                    'Price': 40000000,
+                    'Salary': 8000000,
+                    'Performance': 'Good',
+                },
+                {
+                    'name': 'Hannibal Mejbri',
+                    'Price': 12000000,
+                    'Salary': 2000000,
+                    'Performance': 'Good',
+                },
+                {
+                    'name': 'Kobbie Mainoo',
+                    'Price': 12000000,
+                    'Salary': 2000000,
+                    'Performance': 'Good',
+                },
+                {
+                    'name': 'Daniel Gore',
+                    'Price': 9000000,
+                    'Salary': 2000000,
+                    'Performance': 'Normal',
+                },
+            ],
+            'strikers' : [
             {
                 'name': 'Alejandro Garnacho',
                 'Price': 12000000,
@@ -266,9 +266,10 @@ class Sistema_Venta:
                 'Performance': 'Good',
             },
         ]
-
+        }
+        # 2 forwards,  1 defender,         
         self.market_players = {
-                'goalkeppers': [
+                'goalkeepers': [
                     {
                         'name': 'Andriy Lunin',
                         'Price': 30000000,
@@ -355,59 +356,109 @@ class Sistema_Venta:
                     },
                 ],
             }
-    def evaluate_selling_needs(self, players):
-        # Lógica para evaluar la necesidad de venta según las posiciones requeridas
-        # Devolver una lista de jugadores que cumplen con los requisitos
-        # Puedes adaptar esto según las necesidades específicas del entrenador
-        players_to_sell = []
-
-        # Ejemplo: El entrenador quiere vender a jugadores con rendimiento 'Normal'
-        for player in players:
-            if player['Performance'] == 'Normal':
-                players_to_sell.append(player)
-
-        return players_to_sell
-
-    def calculate_sell_score(self, player):
-        # Lógica para asignar puntuación basada en precio, salario, rendimiento, etc.
-        # Devolver la puntuación
-        sell_score = player['Price'] - player['Salary']
-        return sell_score
-
-    def suggest_players_for_sale(self):
-        # Obtener la lista de jugadores sugeridos para la venta
-        players_to_sell = self.evaluate_selling_needs(self.goalkeppers + self.defenders + self.rightside + self.leftside + self.midfielders + self.strikers)
         
-        # Calcular la puntuación de venta para cada jugador
+        self.goalkeepers = []
+        self.defenders = []
+        self.rightside = []
+        self.leftside = []
+        self.midfielders = []
+        self.strikers = []
+        self.total_sell = 0
+        self.total_buy = 0
+    
+    def evaluate_selling_needs(self):
+        # Limpiar las variables de instancia
+        self.goalkeepers = []
+        self.defenders = []
+        self.rightside = []
+        self.leftside = []
+        self.midfielders = []
+        self.strikers = []
+
+        for position, player_list in self.players.items():
+            # Obtener la cantidad de jugadores que se necesitan vender en esta posición
+            needed_count = self.get_needed_count(position)
+
+            # Filtrar jugadores con rendimiento 'Normal' y ordenar por precio y salario de mayor a menor
+            normal_players_to_sell = [player for player in player_list if player['Performance'] == 'Normal']
+            sorted_players_to_sell = sorted(normal_players_to_sell, key=lambda x: (x['Price'], x['Salary']), reverse=True)
+
+            # Asignar la posición al jugador y añadirlo a la lista correspondiente
+            for player in sorted_players_to_sell[:needed_count]:
+                player['position'] = position
+                self.total_sell += player['Price']
+                getattr(self, position).append(player)
+
+        # Retornar la lista de jugadores para vender
+        return self.get_all_players()
+
+    def evaluate_players_to_buy(self, needed_positions):
+        # Limpiar las variables de instancia
+        self.goalkeepers = []
+        self.defenders = []
+        self.rightside = []
+        self.leftside = []
+        self.midfielders = []
+        self.strikers = []
+
+        for position, player_list in self.market_players.items():
+            # Verificar si la posición es la que se necesita
+            if position in needed_positions:
+                # Obtener la cantidad de jugadores que se necesitan comprar en esta posición
+                needed_count = self.get_needed_count(position)
+
+                # Filtrar jugadores de rendimiento 'Good' y ordenar por rendimiento, precio y salario
+                good_players = [player for player in player_list if player['Performance'] == 'Good']
+                sorted_players = sorted(good_players, key=lambda x: (x['Performance'], x['Price'], x['Salary']))
+
+                # Asignar la posición al jugador y añadirlo a la lista correspondiente
+                for player in sorted_players[:needed_count]:
+                    player['position'] = position
+                    self.total_buy += player['Price']
+                    getattr(self, position).append(player)
+
+        # Retornar la lista de jugadores para comprar
+        return self.get_all_players()
+
+    def get_needed_count(self, position):
+        # Definir la cantidad necesaria para cada posición
+        position_counts = {'goalkeepers': 1, 'defenders': 1, 'rightside': 1, 'midfielders': 2, 'strikers': 2}
+        return position_counts.get(position, 0)
+
+    def get_all_players(self):
+        # Obtener la lista completa de jugadores
+        return (
+            self.goalkeepers +
+            self.defenders +
+            self.rightside +
+            self.leftside +
+            self.midfielders +
+            self.strikers
+        )
+
+    def suggest_players_for_sale_and_purchase(self):
+        players_to_sell = self.evaluate_selling_needs()
+        players_to_buy = self.evaluate_players_to_buy([player['position'] for player in players_to_sell])
+
+        print("\nPlayers to sell:")
         for player in players_to_sell:
-            player["sell_score"] = self.calculate_sell_score(player)
+            print(f"Player: {player['name']} - Position: {player['position']}")
 
-        # Ordenar la lista de jugadores según la puntuación de venta
-        players_to_sell.sort(key=lambda x: x["sell_score"], reverse=True)
+        print("\nPlayers to buy:")
+        for player in players_to_buy:
+            print(f"Player: {player['name']} - Position: {player['position']}")
 
-        return players_to_sell
+        if self.total_sell > self.total_buy:
+            print(f"\nThe earnings from the suggested sales cover the recommended purchases, leaving a balance of £{self.total_sell - self.total_buy}")
+        elif self.total_sell < self.total_buy:
+            print(f"\nTo make the suggested purchases, taking into account the earnings from the sales, results in a remaining balance of £{self.total_buy - self.total_sell}")
+        else:
+            print(f"\nThe earnings from the suggested sales cover the recommended purchases")
+
+        return players_to_sell, players_to_buy
 
 # Crear una instancia de la clase
 sistema_venta = Sistema_Venta()
 
-# Obtener la lista de jugadores sugeridos para la venta
-suggested_players_for_sale = sistema_venta.suggest_players_for_sale()
-
-# Imprimir la lista sugerida
-current_position = None
-
-for player in suggested_players_for_sale:
-    # Utilizar la clave del diccionario como posición
-    player_position = None
-    for position, players in sistema_venta.__dict__.items():
-        if player in players:
-            player_position = position
-            break
-
-    # Imprimir la posición como un título cuando cambia
-    if player_position != current_position:
-        current_position = player_position
-        print(f"\nPosition: {current_position}")
-
-    # Imprimir la información del jugador
-    print(f"{player['name']} - Performance: {player['Performance']} - Sell Score: {player['sell_score']}")
+# Obtener la lista de jugadores sugeridos para la venta y compra
+suggested_players_for_sale, players_to_buy = sistema_venta.suggest_players_for_sale_and_purchase()
